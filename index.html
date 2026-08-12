@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- 薬機法68条：未承認医療機器の情報が一般に認知される状態を避けるため検索エンジンから除外 -->
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex">
 <title>botiss製品ご注文フォーム</title>
 <style>
 :root {
@@ -653,6 +655,159 @@ body {
 @media (max-width: 520px) {
   .product-tooltip { max-width: 300px; font-size: 11px; padding: 12px 14px; }
 }
+
+/* ===== 医療関係者確認ゲート（薬機法68条 対応） ===== */
+body.gated { overflow: hidden; }
+body.gated .top-bar,
+body.gated .container,
+body.gated .sticky-total { display: none !important; }
+
+.gate-overlay {
+  position: fixed; inset: 0; z-index: 10000;
+  background: #eef2f7;
+  display: none; align-items: flex-start; justify-content: center;
+  overflow-y: auto; padding: 24px 16px 48px;
+}
+body.gated .gate-overlay { display: flex; }
+.gate-card {
+  background: #ffffff; border: 1px solid #d0dce8; border-radius: 14px;
+  max-width: 460px; width: 100%; margin: auto;
+  padding: 28px 26px; box-shadow: 0 10px 40px rgba(15,32,58,0.13);
+}
+.gate-brand {
+  font-size: 15px; font-weight: 900; color: #00a19a;
+  letter-spacing: .04em; margin-bottom: 4px;
+}
+.gate-card h2 {
+  font-size: 16px; font-weight: 800; color: #1a1a2e;
+  margin-bottom: 14px; line-height: 1.6;
+}
+.gate-warn {
+  border: 1px solid #dc2626; border-top: 4px double #dc2626;
+  background: #fef2f2; padding: 14px 15px; margin-bottom: 16px;
+}
+.gate-warn .gw-label {
+  font-size: 10.5px; font-weight: 900; letter-spacing: .2em;
+  color: #b91c1c; margin-bottom: 6px;
+}
+.gate-warn p { font-size: 11.5px; line-height: 1.85; color: #7f1d1d; }
+.gate-card .gate-lead {
+  font-size: 11.5px; line-height: 1.9; color: #4b5563; margin-bottom: 16px;
+}
+.gate-check {
+  display: flex; gap: 10px; align-items: flex-start;
+  background: #f7fafc; border: 1px solid #d0dce8; border-radius: 10px;
+  padding: 13px 14px; margin-bottom: 14px; cursor: pointer;
+}
+.gate-check input { width: 17px; height: 17px; margin-top: 2px; flex-shrink: 0; cursor: pointer; }
+.gate-check span { font-size: 11.5px; line-height: 1.8; color: #1a1a2e; font-weight: 600; }
+.gate-card label.gate-code-label {
+  display: block; font-size: 11px; font-weight: 800;
+  color: #374151; margin-bottom: 6px;
+}
+.gate-card input[type="password"].gate-code {
+  width: 100%; padding: 11px 13px; font-size: 14px;
+  border: 1.5px solid #d0dce8; border-radius: 9px; outline: none;
+}
+.gate-card input[type="password"].gate-code:focus { border-color: #00a19a; }
+.gate-card input[type="password"].gate-code.invalid { border-color: #dc2626; background: #fef2f2; }
+.gate-btn {
+  width: 100%; margin-top: 14px; padding: 13px;
+  background: linear-gradient(135deg, #00a19a, #00796b); color: #fff;
+  border: none; border-radius: 9px; font-size: 14px; font-weight: 800;
+  cursor: pointer;
+}
+.gate-btn:hover { filter: brightness(1.07); }
+.gate-btn:disabled { opacity: .5; cursor: not-allowed; filter: none; }
+.gate-err {
+  display: none; margin-top: 10px; font-size: 11.5px;
+  color: #b91c1c; font-weight: 700; text-align: center;
+}
+.gate-err.show { display: block; }
+.gate-foot {
+  margin-top: 18px; padding-top: 14px; border-top: 1px solid #e5e7eb;
+  font-size: 10.5px; line-height: 1.8; color: #9ca3af;
+}
+
+/* ===== 個人輸入スキーム説明 ===== */
+.scheme-notice {
+  background: #fff; border: 1px solid #dc2626; border-top: 4px double #dc2626;
+  padding: 16px 18px; margin-bottom: 18px;
+}
+.scheme-notice .sn-label {
+  font-size: 10.5px; font-weight: 900; letter-spacing: .2em;
+  color: #b91c1c; margin-bottom: 8px;
+}
+.scheme-notice h3 { font-size: 13px; font-weight: 800; color: #1a1a2e; margin-bottom: 8px; }
+.scheme-notice p { font-size: 11.5px; line-height: 1.9; color: #4b5563; }
+.scheme-notice ul { margin: 8px 0 0 1.2em; display: flex; flex-direction: column; gap: 5px; }
+.scheme-notice li { font-size: 11.5px; line-height: 1.8; color: #4b5563; }
+
+/* ===== 送信前の同意チェック ===== */
+.consent-gate {
+  background: #fffbeb; border: 2px solid #fbbf24; border-radius: 12px;
+  padding: 16px 18px; margin-top: 16px;
+}
+.consent-gate .cg-title {
+  font-size: 12px; font-weight: 800; color: #92400e; margin-bottom: 10px;
+}
+.consent-row {
+  display: flex; gap: 10px; align-items: flex-start;
+  padding: 9px 0; cursor: pointer;
+}
+.consent-row input { width: 17px; height: 17px; margin-top: 2px; flex-shrink: 0; cursor: pointer; }
+.consent-row span { font-size: 11.5px; line-height: 1.8; color: #451a03; }
+.consent-gate.invalid { border-color: #dc2626; background: #fef2f2; animation: shake 0.35s; }
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+/* ===== 規制上の注意喚起（ヒト同種骨など） ===== */
+.regu-warn {
+  background: #fff; border: 1px solid #dc2626; border-left: 5px solid #dc2626;
+  border-radius: 8px; padding: 13px 15px; margin-bottom: 12px;
+}
+.regu-warn .rw-title {
+  font-size: 11.5px; font-weight: 800; color: #b91c1c; margin-bottom: 5px;
+}
+.regu-warn p { font-size: 11px; line-height: 1.85; color: #4b5563; }
+
+/* ===== ツールチップ内の注記 ===== */
+.product-tooltip .tt-note {
+  margin-top: 8px; padding-top: 7px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  font-size: 10px; line-height: 1.7; color: #fca5a5;
+}
+
+/* ===== フッター法定リンク ===== */
+.legal-footer {
+  margin-top: 20px; padding: 16px 18px;
+  background: #fff; border: 1px solid #d0dce8; border-radius: 12px;
+}
+.legal-footer .lf-links {
+  display: flex; flex-wrap: wrap; gap: 8px 18px; margin-bottom: 10px;
+}
+.legal-footer a {
+  font-size: 11.5px; font-weight: 700; color: #00796b; text-decoration: none;
+  border-bottom: 1px solid #b2dfdb;
+}
+.legal-footer a:hover { color: #00a19a; }
+.legal-footer .lf-note { font-size: 10.5px; line-height: 1.8; color: #9ca3af; }
+
+/* ===== 履歴パネルの削除ボタン ===== */
+.hist-actions {
+  padding: 12px 16px; border-top: 1px solid #e5e7eb;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.hist-clear-btn {
+  padding: 10px; background: #fff; color: #b91c1c;
+  border: 1.5px solid #fecaca; border-radius: 9px;
+  font-size: 12px; font-weight: 700; cursor: pointer;
+}
+.hist-clear-btn:hover { background: #fef2f2; border-color: #dc2626; }
+.hist-privacy-note { font-size: 10px; line-height: 1.75; color: #9ca3af; }
 </style>
 <!-- 注文確認モーダル -->
 <div class="confirm-overlay" id="confirmOverlay">
@@ -686,7 +841,39 @@ body {
   </div>
 </div>
 </head>
-<body>
+<body class="gated">
+
+<!-- ===== 医療関係者確認ゲート（薬機法68条：広告該当性を下げるためのアクセス制限） ===== -->
+<div class="gate-overlay" id="gateOverlay">
+  <div class="gate-card">
+    <div class="gate-brand">botiss biomaterials</div>
+    <h2>本サイトは歯科医師専用です</h2>
+
+    <div class="gate-warn">
+      <div class="gw-label">重　要</div>
+      <p>本サイトで取り扱う製品は、日本国内において医療機器としての承認・認証を受けていません。医師個人輸入の手続きに関する情報を含むため、一般の方への情報提供を目的としたものではありません。</p>
+    </div>
+
+    <p class="gate-lead">ご利用には、botissに登録済みの先生へ個別にお渡ししているアクセスコードが必要です。お持ちでない場合は担当者までお問い合わせください。</p>
+
+    <label class="gate-check">
+      <input type="checkbox" id="gateConfirm" onchange="updateGateBtn()" />
+      <span>私は日本の歯科医師免許を有する医療従事者であり、上記の内容を理解しました</span>
+    </label>
+
+    <label class="gate-code-label" for="gateCode">アクセスコード</label>
+    <input type="password" id="gateCode" class="gate-code" autocomplete="off"
+      placeholder="アクセスコードを入力" oninput="this.classList.remove('invalid')"
+      onkeydown="if(event.key==='Enter')submitGate()" />
+
+    <button class="gate-btn" id="gateBtn" onclick="submitGate()" disabled>確認して進む</button>
+    <div class="gate-err" id="gateErr">アクセスコードが正しくありません</div>
+
+    <div class="gate-foot">
+      本確認は、未承認医療機器に関する情報が一般に認知される状態を避けるために設けています。アクセスコードの第三者への共有はご遠慮ください。
+    </div>
+  </div>
+</div>
 
 <div class="top-bar">
   <div class="top-bar-inner">
@@ -704,6 +891,22 @@ body {
 </div>
 
 <div class="container">
+
+<!-- ===== 個人輸入スキームの説明（薬機法：個人輸入の前提条件を明示） ===== -->
+<div class="scheme-notice">
+  <div class="sn-label">お申し込みの前に</div>
+  <h3>本フォームは「医師個人輸入」のお申し込みです</h3>
+  <p>
+    掲載製品は日本国内で医療機器としての薬事承認・認証を受けていません。医師がご自身の患者に対して自ら使用する目的で輸入する場合に限り、個人輸入として取り扱われます。次の点をご確認ください。
+  </p>
+  <ul>
+    <li>製品は<strong>国内未承認</strong>であり、使用に伴う責任は施術される先生が負います。</li>
+    <li>ご自身の患者への使用に限られ、<strong>第三者への転売・譲渡はできません</strong>。</li>
+    <li>数量は個人使用として社会通念上妥当な範囲に限られます。</li>
+    <li>使用にあたっては患者様への十分な説明と同意書の取得が必要です。</li>
+    <li>健康被害が生じた場合、独立行政法人医薬品医療機器総合機構（PMDA）の医薬品副作用被害救済制度・生物由来製品感染等被害救済制度の対象外となります。</li>
+  </ul>
+</div>
 
 <!-- 注文者情報 -->
 <div class="section-label">📋 注文者情報</div>
@@ -754,6 +957,11 @@ body {
     </div>
     <div class="field-group full">
       <label>患者同意書（複数枚アップロード可）</label>
+      <div style="background:#f7fafc;border:1px solid #d0dce8;border-radius:10px;padding:12px 14px;margin-bottom:10px;font-size:10.5px;line-height:1.85;color:#4b5563;">
+        <strong style="color:#1a1a2e;">個人情報の取扱いについて</strong><br>
+        アップロードいただいた同意書は、<strong>輸入手続きおよび製品のトレーサビリティ確保</strong>のみに利用し、それ以外の目的では使用しません。保存期間・第三者提供・開示および削除のご請求については<a href="privacy.html" target="_blank" style="color:#00796b;font-weight:700;">プライバシーポリシー</a>をご確認ください。<br>
+        ※ 患者様のお名前が不要な運用の場合は、<strong>症例番号等に置き換えてご提出いただけます</strong>。
+      </div>
       <label class="upload-area" id="consentArea" for="consentFile">
         <input type="file" id="consentFile" accept="image/jpeg,image/jpg,image/png,image/heic,image/heif,image/webp,application/pdf" multiple onchange="handleMultiUpload('consent', this)" />
         <div id="consentPlaceholder">
@@ -768,7 +976,8 @@ body {
       <label class="upload-area" id="licenseArea" for="licenseFile" style="padding:12px;border-color:#e5e7eb;">
         <input type="file" id="licenseFile" accept="image/jpeg,image/jpg,image/png,image/heic,image/heif,image/webp,application/pdf" onchange="handleUpload('license', this)" />
         <div id="licensePlaceholder">
-          <div style="font-size:11px;"><span style="font-weight:800;color:#1a1a2e;">🪪 歯科医師免許（初回のみ）</span><span style="font-size:10px;color:#9ca3af;margin-left:8px;">タップして選択（JPEG/PNG/HEIC/PDF）</span></div>
+          <div style="font-size:11px;"><span style="font-weight:800;color:#1a1a2e;">🪪 歯科医師免許</span><span class="required">初回必須</span><span style="font-size:10px;color:#9ca3af;margin-left:8px;">タップして選択（JPEG/PNG/HEIC/PDF）</span></div>
+          <div style="font-size:10px;color:#6b7280;margin-top:5px;line-height:1.7;">個人輸入は医師ご本人であることが前提のため、初回のお申し込み時に確認させていただきます。2回目以降は入力不要です。</div>
         </div>
         <div id="licensePreview" style="display:none"></div>
       </label>
@@ -890,6 +1099,15 @@ body {
       </tbody>
     </table>
   </div>
+</div>
+
+<!-- ===== ヒト同種骨に関する注意喚起（再生医療等安全性確保法） ===== -->
+<div class="regu-warn">
+  <div class="rw-title">⚠ ヒト同種骨製品に関するご確認（maxgraft® シリーズ）</div>
+  <p>
+    以下の maxgraft® 各製品は<strong>ヒト同種骨（他人の組織由来）</strong>です。使用にあたり「再生医療等の安全性の確保等に関する法律」上の手続き（再生医療等提供計画の提出、特定認定再生医療等委員会の審査等）が必要となる場合があります。<strong>該当の有無は所属の医療機関にてあらかじめご確認ください。</strong><br>
+    また、生物由来材料のため、使用したロット番号と症例の記録を保管いただくようお願いいたします。
+  </p>
 </div>
 
 <!-- maxgraft® cancellous granules -->
@@ -1442,7 +1660,36 @@ body {
     <span class="threshold-chip red">✗ 400€未満 → 送料全額負担</span>
   </div>
   <div style="margin-top:8px; font-size:10.5px; color:#92400e; line-height:1.8;">
-    ※ 送料はDHL実費 ／ 為替レートは弊社カード決済前月レート ／ 立替納税・消費税はお客様負担 ／ クレカ決済のみ
+    ※ 送料はDHL実費 ／ 為替レートは弊社カード決済前月レート ／ 立替納税・消費税はお客様負担 ／ クレカ決済のみ<br>
+    ※ <strong>発注確定後のキャンセルはお受けできません。</strong>滅菌済みの生物由来材料のため、お客様都合による返品もお受けできません（初期不良・輸送破損時を除く）。詳細は<a href="tokushoho.html" target="_blank" style="color:#92400e;font-weight:700;">特定商取引法に基づく表記</a>をご確認ください。
+  </div>
+</div>
+
+<!-- ===== 送信前の同意確認（個人輸入の前提条件・個人情報・取引条件） ===== -->
+<div class="consent-gate" id="consentGate">
+  <div class="cg-title">✅ 送信前のご確認（すべて必須）</div>
+  <label class="consent-row">
+    <input type="checkbox" id="ck-import" onchange="clearConsentError()" />
+    <span>本製品が<strong>日本国内で薬事承認を受けていない</strong>こと、<strong>自己の患者に自ら使用する目的</strong>で輸入すること、<strong>第三者への転売・譲渡を行わない</strong>こと、使用に伴う責任は施術者が負うことを理解し、同意します。</span>
+  </label>
+  <label class="consent-row">
+    <input type="checkbox" id="ck-privacy" onchange="clearConsentError()" />
+    <span>提出する書類に含まれる個人情報が、<strong>輸入手続きおよびトレーサビリティ確保の目的</strong>で利用されることに同意します（<a href="privacy.html" target="_blank" style="color:#92400e;font-weight:700;">プライバシーポリシー</a>）。患者様の情報を含む場合、患者様ご本人の同意を取得済みです。</span>
+  </label>
+  <label class="consent-row">
+    <input type="checkbox" id="ck-terms" onchange="clearConsentError()" />
+    <span><strong>発注確定後のキャンセル・返品ができない</strong>こと、および送料・関税・立替消費税・通関手数料がお客様のご負担となることを了承しました（<a href="tokushoho.html" target="_blank" style="color:#92400e;font-weight:700;">特定商取引法に基づく表記</a>）。</span>
+  </label>
+</div>
+
+<!-- ===== 法定表示へのリンク ===== -->
+<div class="legal-footer">
+  <div class="lf-links">
+    <a href="tokushoho.html" target="_blank">特定商取引法に基づく表記</a>
+    <a href="privacy.html" target="_blank">プライバシーポリシー</a>
+  </div>
+  <div class="lf-note">
+    本サイトは歯科医師専用です。掲載製品は日本国内で医療機器としての承認・認証を受けていません。製品情報は製造元資料（英文IFU）に基づくものであり、国内での有効性・安全性を保証するものではありません。
   </div>
 </div>
 
@@ -1476,12 +1723,86 @@ body {
       <button class="hist-close" onclick="closeHist()">✕</button>
     </div>
     <div class="hist-body" id="histBody"></div>
+    <div class="hist-actions">
+      <button class="hist-clear-btn" onclick="clearHistory()">🗑 この端末の保存データをすべて削除</button>
+      <div class="hist-privacy-note">
+        履歴・入力内容はこの端末のブラウザ内にのみ保存されます（サーバーには送信されません）。<strong>医院の共用端末をご利用の場合は、離席前に削除をお願いします。</strong>
+      </div>
+    </div>
   </div>
 </div>
 
 <script>
 const HIST_KEY = 'botiss_order_history';
-const ADMIN_PASS = 'botiss2026';  // 管理者パスワード（変更可能）
+
+/* ===========================================================
+   医療関係者確認ゲート（薬機法68条 対応）
+
+   ⚠ この方式はクライアント側の確認です。ページのソースを直接
+     読まれた場合は防げません。恒久対応としては、既存の
+     Cloudflare Workers 側で index.html 自体をトークン検証の
+     後ろに置く構成へ移行してください。
+     ここでは平文で置かず SHA-256 のハッシュ比較にしています。
+
+   ・現在のアクセスコード： botiss-dental-2026
+   ・変更手順：新しいコードの SHA-256 を求めて下記を差し替える
+     例）echo -n "新しいコード" | shasum -a 256
+   =========================================================== */
+const GATE_HASH  = '69f55094455b0fa6cd8197d7647e5f33ddfb52086c9a23f2d6844b7a382775f1';
+const ADMIN_HASH = '4cd351fffd75c4f1dc3765c19b22f8b97424eb037d832db2b25cf213a42fd544';
+const GATE_KEY   = 'botiss_gate_ok';
+const LICENSE_KEY = 'botiss_license_submitted';
+
+async function sha256Hex(text) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+  return Array.from(new Uint8Array(buf))
+    .map(function(b) { return b.toString(16).padStart(2, '0'); }).join('');
+}
+
+function updateGateBtn() {
+  document.getElementById('gateBtn').disabled = !document.getElementById('gateConfirm').checked;
+}
+
+async function submitGate() {
+  const codeEl = document.getElementById('gateCode');
+  const errEl  = document.getElementById('gateErr');
+  const code   = codeEl.value.trim();
+  if (!document.getElementById('gateConfirm').checked) return;
+  if (!code) { codeEl.classList.add('invalid'); codeEl.focus(); return; }
+
+  let hash;
+  try {
+    hash = await sha256Hex(code);
+  } catch (e) {
+    // crypto.subtle は HTTPS（またはlocalhost）でのみ利用可能
+    errEl.textContent = 'この接続では確認できません。https:// のURLでお試しください。';
+    errEl.classList.add('show');
+    return;
+  }
+
+  if (hash === GATE_HASH) {
+    try { sessionStorage.setItem(GATE_KEY, '1'); } catch (e) {}
+    openGate();
+  } else {
+    codeEl.classList.add('invalid');
+    codeEl.value = '';
+    errEl.textContent = 'アクセスコードが正しくありません';
+    errEl.classList.add('show');
+    codeEl.focus();
+  }
+}
+
+function openGate() {
+  document.body.classList.remove('gated');
+  window.scrollTo(0, 0);
+}
+
+// セッション中に確認済みならゲートを表示しない
+(function() {
+  try {
+    if (sessionStorage.getItem(GATE_KEY) === '1') openGate();
+  } catch (e) {}
+})();
 
 // ===== 管理者レート変更 =====
 function showAdminModal() {
@@ -1492,9 +1813,11 @@ function showAdminModal() {
 function hideAdminModal() {
   document.getElementById('adminOverlay').classList.remove('show');
 }
-function unlockRate() {
+async function unlockRate() {
   const pass = document.getElementById('adminPass').value;
-  if (pass === ADMIN_PASS) {
+  let passHash = '';
+  try { passHash = await sha256Hex(pass); } catch (e) {}
+  if (passHash === ADMIN_HASH) {
     const rateInput = document.getElementById('rate');
     rateInput.classList.remove('locked');
     rateInput.removeAttribute('readonly');
@@ -1540,28 +1863,37 @@ function saveUserInfo() {
 updateAllJpy();
 
 // ===== 製品ツールチップ =====
+/* -----------------------------------------------------------
+   製品説明（薬機法66条 対応）
+
+   国内未承認製品のため、効能・性能を断定・保証する表現は
+   使用せず、製造元資料（英文IFU）に基づく記述である旨を
+   showTooltip() 側で必ず併記しています。
+   文言を追記・修正する際は、断定形（「〜される」「〜が得られる」
+   「〜に最適」）を避け、材質・構造・用途の記述に留めてください。
+   ----------------------------------------------------------- */
 var PRODUCT_TIPS = {
-  'cerabone': '牛骨由来の天然骨補填材。独自の1200°C高温焼成処理により有機成分を完全除去した100%純粋な骨ミネラル。高い多孔性と粗面構造により血液・タンパク質の吸着に優れ、インプラント周囲やサイナスリフトなどの骨造成に広く使用。',
-  'cerabone-plus': 'cerabone®にヒアルロン酸ナトリウムを配合。水和すると顆粒同士が粘着し「スティッキーボーン」を形成するため操作性が大幅に向上。ヒアルロン酸の血管新生促進効果により、より早い血管形成と軟組織治癒を実現。',
-  'maxresorb': '60% HA / 40% β-TCPからなる完全合成の二相性リン酸カルシウム骨補填材。約80%の高い多孔率とナノ構造表面を持ち、約2-3年で患者自身の骨に置換。動物由来材料を避けたい場合に適した代替選択肢。',
-  'maxgraft-can': 'ヒト同種骨（生体ドナーの大腿骨頭由来）を特殊なAllotec®プロセスで処理した骨補填材。天然の骨構造とコラーゲンを保持し、患者自身の骨への完全なリモデリングが可能。3-4ヶ月で安定した骨統合が得られる。',
-  'maxgraft-cc': 'ヒト同種骨由来の皮質海綿骨顆粒。天然の骨構造を保持しつつ、皮質骨と海綿骨の両方の特性を持ち、構造的サポートと骨形成の場を提供。',
-  'bonering': 'ヒト同種骨から製造されたプレファブリケーテッド海綿骨リング。骨造成とインプラント埋入を一回の手術で同時に行えるワンステージ術式を実現し、治療期間を数ヶ月短縮。',
-  'cortico': 'ヒト大腿骨骨幹部由来の完全石灰化皮質骨プレート。シェルテクニックに使用され、骨欠損部に固定して内部に顆粒状骨補填材を充填することで、自家骨ブロック採取の合併症を回避しながら歯槽堤造成を行える。',
-  'bonebuilder': '患者様のCTデータをもとにCAD/CAMで製造するカスタムオーダーメイドの同種骨ブロック。骨欠損部の形状に完全一致するため、術中の調整が不要で手術時間を大幅に短縮。骨造成の精度・予知性が向上する。※受注生産のため別途お見積りが必要です。',
-  'jason': 'ブタ心膜由来の非架橋コラーゲンメンブレン。ハニカム状の多層構造により優れた引裂き耐性と自然な長期バリア機能を発揮。非常に薄く、GBR/GTR手術における組織再生のオールラウンダー。',
-  'colliprotect': 'ブタ真皮由来の天然コラーゲンメンブレン。毛包由来の天然ポアが早期の血管新生を促進しながら軟組織の侵入を防止。乾燥時は硬く自立し、水和後は柔軟に表面に適合する中期バリア機能を持つ。',
-  'permamem': '高密度PTFE製の非吸収性メンブレン。厚さ約0.08mmと極めて薄いながら優れた360°引裂き耐性と細菌・細胞遮断性を持つ。開放創治癒（オープンヒーリング）が可能で、抜歯窩・歯槽堤保存に最適。',
-  'novamag': '純マグネシウム金属製の吸収性メンブレン。機械的強度と生体吸収性を両立した革新的なGBR用バリア材。8-16週間で体内に完全吸収され、二次手術による除去が不要。',
-  'shield': '純マグネシウム金属製の吸収性シールド。頬側・口蓋側の骨壁欠損に対してフラップレスアプローチで使用可能。メンブレン固定が不要で、抜歯即時の歯槽骨再生（シールドテクニック）に特化。',
-  'fixation': '純マグネシウム製の吸収性フィクセイションスクリュー。NOVAMag® membraneやSHIELDの確実な固定に使用。生体内で完全吸収されるため二次手術が不要。',
-  'mucoderm': 'ブタ真皮由来の脱細胞化3Dコラーゲンマトリックス。自家結合組織移植の代替材料として、角化歯肉増大や歯肉退縮の被覆などの軟組織造成に使用。高い多孔性により迅速な血管新生と組織統合を促進。',
-  'mucpunch': 'mucoderm®の円形パンチング用器具。ソフトティシューパンチを使用して必要なサイズのmucoderm®を効率的に採取。',
-  'collacone': '天然コラーゲン製の湿潤安定性コーン型創傷被覆材。抜歯窩に適合する形状で、血餅の安定化と局所止血を支援。約2-4週間で完全吸収。',
-  'collafleece': 'ブタ真皮由来の湿潤安定性コラーゲンスポンジ。高い止血効果を持ち、血小板接着により血液凝固を促進。生検採取部位や抜歯窩の被覆に使用。約2-4週間で吸収。',
-  'titan': 'メンブレン固定用のチタンピンセット。アプリケーターとディスペンサーにより、メンブレンの正確な固定をワンハンドで行える。',
-  'grafter': '骨補填材の水和と欠損部への注入を効率的に行うための専用アプリケーター。シリンジ型で各種骨補填材やその混合物に対応。',
-  'novainst-set': 'NOVAMag®メンブレン・シールド専用インストゥルメントセット。safety cutter、sculptor、scissors、洗浄トレイのフルセットで、マグネシウムメンブレンの適切な加工・成形に必要なすべての器具を含む。',
+  'cerabone': '牛骨由来の骨補填材。1200°Cの高温焼成処理により有機成分を除去した骨ミネラルです。多孔性と粗面構造を特徴とし、製造元はインプラント周囲やサイナスリフトなどの骨造成での使用を想定した製品として案内しています。',
+  'cerabone-plus': 'cerabone®にヒアルロン酸ナトリウムを配合した製品。水和により顆粒同士が粘着し、いわゆる「スティッキーボーン」の状態になるため操作性を意図した設計です。製造元はヒアルロン酸による血管新生への働きかけを説明しています。',
+  'maxresorb': '60% HA / 40% β-TCPからなる合成の二相性リン酸カルシウム骨補填材。多孔率は約80%、ナノ構造表面を持ちます。製造元資料では約2-3年での置換が報告されています。動物由来材料を用いない選択肢です。',
+  'maxgraft-can': 'ヒト同種骨（生体ドナーの大腿骨頭由来）をAllotec®プロセスで処理した骨補填材。骨構造とコラーゲンを保持した製品です。製造元資料では3-4ヶ月での骨統合が報告されています。【ヒト由来・再生医療等安全性確保法の確認が必要な場合があります】',
+  'maxgraft-cc': 'ヒト同種骨由来の皮質海綿骨顆粒。皮質骨と海綿骨の双方の構造を含みます。【ヒト由来・再生医療等安全性確保法の確認が必要な場合があります】',
+  'bonering': 'ヒト同種骨から製造された海綿骨リング。骨造成とインプラント埋入を一回の手術で行う術式を想定した形状です。製造元は治療期間の短縮が期待できると説明しています。【ヒト由来・再生医療等安全性確保法の確認が必要な場合があります】',
+  'cortico': 'ヒト大腿骨骨幹部由来の石灰化皮質骨プレート。シェルテクニックに用いられ、骨欠損部に固定して内部に顆粒状骨補填材を充填する術式で使用されます。自家骨ブロックの採取を要しない術式です。【ヒト由来・再生医療等安全性確保法の確認が必要な場合があります】',
+  'bonebuilder': '患者様のCTデータをもとにCAD/CAMで製造するカスタムメイドの同種骨ブロック。骨欠損部の形状に合わせて製造されるため、製造元は術中調整の削減と手術時間の短縮を説明しています。※受注生産のため別途お見積りが必要です。【ヒト由来・再生医療等安全性確保法の確認が必要な場合があります】',
+  'jason': 'ブタ心膜由来の非架橋コラーゲンメンブレン。ハニカム状の多層構造を持つ薄いメンブレンで、製造元はGBR/GTR手術における幅広い適用を想定した製品として案内しています。',
+  'colliprotect': 'ブタ真皮由来のコラーゲンメンブレン。毛包由来の天然ポアを持つ構造です。乾燥時は硬く自立し、水和後は柔軟に表面へ適合します。製造元は中期のバリア機能を想定した製品として案内しています。',
+  'permamem': '高密度PTFE製の非吸収性メンブレン。厚さ約0.08mm。製造元は360°方向の引裂き耐性と細菌・細胞の遮断性を挙げており、開放創治癒（オープンヒーリング）を想定した術式で使用されます。',
+  'novamag': '純マグネシウム金属製の吸収性メンブレン。機械的強度と生体吸収性を意図したGBR用バリア材です。製造元資料では8-16週間での吸収が報告されており、除去のための二次手術を要さない設計とされています。',
+  'shield': '純マグネシウム金属製の吸収性シールド。頬側・口蓋側の骨壁欠損に対するフラップレスアプローチを想定した製品で、抜歯即時のシールドテクニックで使用されます。',
+  'fixation': '純マグネシウム製の吸収性フィクセイションスクリュー。NOVAMag® membraneやSHIELDの固定に使用します。製造元は生体内で吸収される設計であると説明しています。',
+  'mucoderm': 'ブタ真皮由来の脱細胞化3Dコラーゲンマトリックス。製造元は自家結合組織移植の代替材料として、角化歯肉増大や歯肉退縮の被覆などの軟組織造成での使用を想定した製品として案内しています。',
+  'mucpunch': 'mucoderm®の円形パンチング用器具。ソフトティシューパンチを使用して必要なサイズのmucoderm®を採取します。',
+  'collacone': '天然コラーゲン製のコーン型創傷被覆材。抜歯窩に適合する形状で、製造元資料では約2-4週間での吸収が報告されています。',
+  'collafleece': 'ブタ真皮由来のコラーゲンスポンジ。製造元は血小板接着による止血への働きかけを説明しており、生検採取部位や抜歯窩の被覆に使用されます。製造元資料では約2-4週間での吸収が報告されています。',
+  'titan': 'メンブレン固定用のチタンピン。アプリケーターとディスペンサーにより、片手での固定操作を想定した設計です。',
+  'grafter': '骨補填材の水和と欠損部への注入に用いる専用アプリケーター。シリンジ型で各種骨補填材やその混合物に対応します。',
+  'novainst-set': 'NOVAMag®メンブレン・シールド専用インストゥルメントセット。safety cutter、sculptor、scissors、洗浄トレイのフルセットで、マグネシウムメンブレンの加工・成形に用いる器具を含みます。',
 };
 
 // ツールチップ要素を作成
@@ -1610,7 +1942,9 @@ document.querySelectorAll('.acc-header').forEach(function(header) {
 });
 
 function showTooltip(id, name, e) {
-  tooltipEl.innerHTML = '<div class="tt-title">' + escHtml(name) + '</div><div class="tt-body">' + escHtml(PRODUCT_TIPS[id]) + '</div>';
+  tooltipEl.innerHTML = '<div class="tt-title">' + escHtml(name) + '</div>'
+    + '<div class="tt-body">' + escHtml(PRODUCT_TIPS[id]) + '</div>'
+    + '<div class="tt-note">※ 製造元資料（英文IFU）に基づく情報です。本製品は日本国内で医療機器としての承認・認証を受けておらず、国内での有効性・安全性を保証するものではありません。</div>';
   tooltipEl.classList.add('show');
   positionTooltip(e);
 }
@@ -1868,7 +2202,10 @@ function collectData() {
     address: document.getElementById('f-address').value,
     email:   document.getElementById('f-email').value,
     remarks: document.getElementById('remarks').value,
-    rate:    rate
+    rate:    rate,
+    // 同意の取得記録（証跡として送信データに含める）
+    consent: getConsentState(),
+    consentAt: new Date().toLocaleString('ja-JP')
   };
   const items = [];
   document.querySelectorAll('tr[data-price]').forEach(function(row) {
@@ -1943,6 +2280,14 @@ function buildOrderText(d) {
     lines.push('■ 備考');
     lines.push('・' + d.info.remarks);
   }
+  // 同意取得の証跡（薬機法・個情法・特商法）
+  var ck = d.info.consent || {};
+  lines.push('');
+  lines.push('■ 同意取得記録');
+  lines.push('・個人輸入の前提条件（未承認／自己の患者に使用／転売しない／自己責任）：' + (ck.import  ? '同意済' : '未同意'));
+  lines.push('・個人情報の取扱い（患者本人の同意取得を含む）　　　　　　　　　　：' + (ck.privacy ? '同意済' : '未同意'));
+  lines.push('・取引条件（キャンセル・返品不可／諸費用の負担）　　　　　　　　　：' + (ck.terms   ? '同意済' : '未同意'));
+  lines.push('・同意日時：' + (d.info.consentAt || '—'));
   lines.push('');
   lines.push('━━━━━━━━━━━━━━━━━━━━');
   return lines.join('\n');
@@ -2023,6 +2368,10 @@ function resetAll() {
 function saveHistory(d) {
   try {
     saveUserInfo(); // 顧客情報を保存
+    // 歯科医師免許を提出済みなら記録（次回以降は必須にしない）
+    if (uploadData && uploadData.license && uploadData.license.data) {
+      localStorage.setItem(LICENSE_KEY, '1');
+    }
     if (!d.items.length) return;
     const hist = JSON.parse(localStorage.getItem(HIST_KEY) || '[]');
     hist.unshift({
@@ -2092,6 +2441,25 @@ function escHtml(str) {
 
 function closeHist() { document.getElementById('histOverlay').classList.remove('open'); }
 function closeHistOutside(e) { if (e.target.id === 'histOverlay') closeHist(); }
+
+// ===== この端末の保存データをすべて削除（個人情報の削除請求への対応） =====
+function clearHistory() {
+  if (!confirm('この端末に保存されている購入履歴と入力内容（医院名・先生のお名前・TEL・住所・メールアドレス）をすべて削除します。\n\n削除後はアクセスコードの再入力が必要になります。この操作は取り消せません。よろしいですか？')) return;
+  try {
+    localStorage.removeItem(HIST_KEY);
+    localStorage.removeItem('botiss_user_info');
+    localStorage.removeItem(LICENSE_KEY);
+    sessionStorage.removeItem(GATE_KEY);
+  } catch (e) {}
+  openHist();   // 履歴表示を再描画
+  closeHist();
+  // 共用端末での利用を想定し、アクセス確認からやり直す
+  document.body.classList.add('gated');
+  document.getElementById('gateConfirm').checked = false;
+  document.getElementById('gateCode').value = '';
+  document.getElementById('gateErr').classList.remove('show');
+  updateGateBtn();
+}
 
 function deleteHist(id) {
   if (!confirm('この履歴を削除しますか？')) return;
@@ -2164,6 +2532,17 @@ function reorder(id) {
 // ===== 注文確認画面 =====
 var pendingOrder = null; // 送信待ちデータ
 
+// ===== 送信前同意チェックの状態 =====
+function getConsentState() {
+  function ck(id) { var el = document.getElementById(id); return !!(el && el.checked); }
+  var s = { import: ck('ck-import'), privacy: ck('ck-privacy'), terms: ck('ck-terms') };
+  s.all = s.import && s.privacy && s.terms;
+  return s;
+}
+function clearConsentError() {
+  document.getElementById('consentGate').classList.remove('invalid');
+}
+
 function sendOrder() {
   const d = collectData();
   // 製品が0個 かつ 同意書も歯科医師免許もない場合はエラー
@@ -2206,6 +2585,28 @@ function sendOrder() {
       firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
       setTimeout(function(){ firstInvalid.focus(); }, 400);
     }
+    return;
+  }
+
+  // 歯科医師免許チェック（初回のみ必須：個人輸入は医師本人であることが前提）
+  var licenseDone = false;
+  try { licenseDone = localStorage.getItem(LICENSE_KEY) === '1'; } catch (e) {}
+  if (!licenseDone && !hasLicense) {
+    showToast('⚠ 初回のお申し込みには歯科医師免許のアップロードが必要です');
+    var licenseArea = document.getElementById('licenseArea');
+    if (licenseArea) {
+      licenseArea.style.borderColor = '#dc2626';
+      licenseArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    return;
+  }
+
+  // 送信前の同意確認（個人輸入の前提条件・個人情報・取引条件）
+  if (!getConsentState().all) {
+    var cg = document.getElementById('consentGate');
+    cg.classList.add('invalid');
+    cg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    showToast('⚠ 送信前のご確認にすべてチェックをお願いします');
     return;
   }
 
@@ -2375,7 +2776,12 @@ function confirmAndSend() {
     shipping: shippingStatus,
     licenseImage: uploadData.license.data || '',
     licenseFileName: uploadData.license.name || '',
-    consentCount: uploadData.consent.files.length
+    consentCount: uploadData.consent.files.length,
+    // 同意取得の証跡（薬機法・個情法・特商法）
+    agreeImport:  (d.info.consent && d.info.consent.import)  ? 'yes' : 'no',
+    agreePrivacy: (d.info.consent && d.info.consent.privacy) ? 'yes' : 'no',
+    agreeTerms:   (d.info.consent && d.info.consent.terms)   ? 'yes' : 'no',
+    agreedAt:     d.info.consentAt || ''
   };
 
   // Google Apps Script Web App へ送信

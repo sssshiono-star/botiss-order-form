@@ -1,0 +1,80 @@
+/* botiss オーダーフォーム — 法定表示ページ共通スタイル */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+  background: #f0f4f8;
+  color: #1a1a2e;
+  font-size: 14px;
+  line-height: 1.95;
+  padding: 0 16px 80px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap { max-width: 760px; margin: 0 auto; }
+
+.page-head {
+  padding: 36px 0 20px;
+  border-bottom: 3px double #b8c6d6;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.page-head .brand {
+  font-size: 13px; font-weight: 900; color: #00a19a; letter-spacing: .05em;
+}
+.page-head h1 { font-size: 22px; font-weight: 800; line-height: 1.5; }
+.page-head .updated { font-size: 11.5px; color: #6b7280; }
+
+/* 記入が必要な箇所を目立たせる（公開前に解消してください） */
+.todo {
+  background: #fef2f2; border: 1px solid #dc2626; border-top: 4px double #dc2626;
+  padding: 14px 16px; margin: 22px 0;
+}
+.todo .todo-label {
+  font-size: 10.5px; font-weight: 900; letter-spacing: .2em; color: #b91c1c;
+  margin-bottom: 6px;
+}
+.todo p { font-size: 12px; line-height: 1.85; color: #7f1d1d; }
+mark.fill {
+  background: #fde68a; color: #78350f; font-weight: 800;
+  padding: 1px 6px; border-radius: 3px;
+}
+
+h2 {
+  font-size: 16px; font-weight: 800; margin: 34px 0 12px;
+  padding-bottom: 8px; border-bottom: 1.5px solid #d0dce8;
+}
+h3 { font-size: 13.5px; font-weight: 800; margin: 18px 0 6px; color: #00695c; }
+p { margin-bottom: 12px; }
+ul, ol { margin: 0 0 12px 1.4em; display: flex; flex-direction: column; gap: 6px; }
+li { line-height: 1.85; }
+
+.tablebox { overflow-x: auto; border: 1px solid #d0dce8; background: #fff; border-radius: 10px; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 460px; }
+th, td { padding: 13px 15px; border-bottom: 1px solid #e5e7eb; text-align: left; vertical-align: top; }
+th {
+  width: 32%; background: #f7fafc; font-weight: 800; color: #374151;
+  white-space: nowrap;
+}
+tr:last-child th, tr:last-child td { border-bottom: none; }
+
+.note-box {
+  background: #fff; border: 1px solid #d0dce8; border-left: 4px solid #00a19a;
+  border-radius: 8px; padding: 14px 16px; margin: 14px 0;
+  font-size: 12.5px; color: #4b5563;
+}
+.note-box strong { color: #1a1a2e; }
+
+.back-link {
+  display: inline-block; margin-top: 34px; padding: 11px 20px;
+  background: #fff; border: 1.5px solid #00a19a; border-radius: 9px;
+  color: #00796b; text-decoration: none; font-size: 13px; font-weight: 700;
+}
+.back-link:hover { background: #f0fdfb; }
+
+@media (max-width: 520px) {
+  body { font-size: 13.5px; }
+  .page-head h1 { font-size: 19px; }
+  th { width: 38%; white-space: normal; }
+}
